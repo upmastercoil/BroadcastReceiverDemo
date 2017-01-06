@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="tech.android.tcmp13.broadcastreceiverdemo">
+
+    <permission android:name="tech.android.tcmp13.FACEBOOK169_READ_SENSITIVE"
+        android:icon="@android:drawable/ic_menu_share"
+        android:label="Facebook 169 Data"
+        android:protectionLevel="dangerous"/>
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ShareActivity"
+            android:permission="tech.android.tcmp13.FACEBOOK169_READ_SENSITIVE">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <action android:name="tech.android.tcmp13.FACEBOOK169"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
+        <!--Static receiver, every time there is a phone call the receiver will wake up, and possibly hog the memory-->
+        <receiver android:name=".FbiPhoneCallBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE"/>
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
